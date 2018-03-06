@@ -18,12 +18,12 @@ DATADIR= "/usr/games/lib/zapmdir"
 
 LIBS= -lpanel -lcurses
 INCLUDE=
-LDFLAGS= -flat_namespace $(ARCH)
+LDFLAGS= $(ARCH)
 CXX = c++
 #CXX= c++-4.0
 
 
-CXXFLAGS=-Wall -Wno-char-subscripts -O -g $(INCLUDE) $(ARCH)
+CXXFLAGS=-Wall -Wextra -Wno-char-subscripts -O0 -g $(INCLUDE) $(ARCH)
 
 all: zapm-oneuser
 
