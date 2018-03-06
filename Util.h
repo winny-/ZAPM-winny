@@ -107,7 +107,7 @@ void
 shVector<T>::ensure (int capacity)
 {
     if (mCapacity < capacity) {
-        grow (capacity);
+        this->grow (capacity);
     }
 }
 
@@ -144,7 +144,7 @@ int
 shVector<T>::add (T item)
 {
     if (++mCount == mCapacity) {
-        grow (mCapacity * 2);
+        this->grow (mCapacity * 2);
     }
     mItems[mCount-1] = item;
     return mCount - 1;
@@ -262,7 +262,7 @@ shHeap<T>::insert (T item)
     int i;
 
     if (++this->mCount == this->mCapacity) {
-        grow (this->mCapacity * 2);
+        this->grow (this->mCapacity * 2);
     }
     i = this->mCount - 1;
     while (i > 0 && 
