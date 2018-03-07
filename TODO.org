@@ -1,0 +1,11 @@
+* Tasks
+** TODO Feature: Add configuration file for default options
+   - vi keys
+   - los
+   - autopickup
+   - autopickup exceptions
+   - name
+   - default race
+** TODO Find Patches used for Hardfought NetHack Tribute Tournament 2017
+** TODO Cleanup: Replace homegrown vector with STL vector
+
