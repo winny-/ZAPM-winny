@@ -23,7 +23,7 @@ CXX = c++
 #CXX= c++-4.0
 
 
-CXXFLAGS=-Wall -Wextra -Wno-char-subscripts -O0 -g $(INCLUDE) $(ARCH)
+CXXFLAGS=-Wall -Wextra -Wno-char-subscripts -O0 -g -std=c++98 $(INCLUDE) $(ARCH)
 
 all: zapm-oneuser
 
