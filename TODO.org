@@ -6,6 +6,7 @@
    - autopickup exceptions
    - name
    - default race
-** TODO Find Patches used for Hardfought NetHack Tribute Tournament 2017
+** DONE Find Patches used for Hardfought NetHack Tribute Tournament 2017
+   [[https://github.com/NHTangles/devnull-zapm][NHTangles/devnull-zapm]]
 ** TODO Cleanup: Replace homegrown vector with STL vector
 
