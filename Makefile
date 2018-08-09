@@ -1,29 +1,24 @@
 # to build a multi-user version, make clean and then make zapm-multiuser
 #
 
-OBJS = Global.o Armor.o Artifact.o Attack.o BunkerRooms.o Canister.o	\
-Cave.o Corpse.o Creature.o Doctor.o Droid.o Energy.o Event.o Fight.o	\
-FloppyDisk.o Game.o God.o Help.o Hero.o Implant.o Interface.o		\
-Inventory.o Mainframe.o Map.o Money.o Monster.o MonsterAI.o Mutant.o	\
-Object.o ObjectParser.o Options.o Path.o Profession.o RabbitLevel.o	\
-RayGun.o Render.o Room.o SaveLoad.o Sewer.o SewerPlant.o Shop.o		\
-Skills.o Tombstone.o Tool.o Town.o TwistyRooms.o Util.o Vat.o Vision.o	\
-Weapon.o main.o
+OBJ=	Global.o Armor.o Artifact.o Attack.o BunkerRooms.o \
+	Canister.o Cave.o Corpse.o Creature.o Doctor.o Droid.o \
+	Energy.o Event.o Fight.o FloppyDisk.o Game.o God.o \
+	Help.o Hero.o Implant.o Interface.o Inventory.o \
+	Mainframe.o Map.o Money.o Monster.o MonsterAI.o Mutant.o \
+	Object.o ObjectParser.o Options.o Path.o Profession.o \
+	RabbitLevel.o RayGun.o Render.o Room.o SaveLoad.o Sewer.o \
+	SewerPlant.o Shop.o Skills.o Tombstone.o Tool.o Town.o \
+	TwistyRooms.o Util.o Vat.o Vision.o Weapon.o main.o
 
-ZAPMOWNER= appowner
-GAMEDIR= "/usr/games"
-DATADIR= "/usr/games/lib/zapmdir"
+ZAPMOWNER= 	appowner
+GAMEDIR= 	"/usr/games"
+DATADIR= 	"/usr/games/lib/zapmdir"
 
-#ARCH = -arch i386 -arch ppc
-
-LIBS= -lpanel -lcurses
-INCLUDE=
-LDFLAGS= $(ARCH)
-CXX = c++
-#CXX= c++-4.0
-
-
-CXXFLAGS=-Wall -Wextra -Wno-char-subscripts -O0 -g -std=c++98 $(INCLUDE) $(ARCH)
+CXX?=		c++
+BASE_LDFLAGS=	-lpanel -lcurses
+LDFLAGS?=
+CXXFLAGS?=	-Wall -Wextra -Wno-char-subscripts -O0 -g
 
 all: zapm-oneuser
 
@@ -60,11 +55,14 @@ zapm-win32: win32/Release/zapm.exe
 	rm -f zapm.zip
 	cd win32/build && zip -r ../zapm.zip zapm 
 
-zapm: $(OBJS)
-	c++ -g -o zapm $(LDPATH) $(LDFLAGS) $(LIBS) $(OBJS)
+$(OBJ): %.o:%.cpp
+	$(CXX) -o $@ $(CPPFLAGS) $(CXXFLAGS) -std=c++98 -c $<
 
-debug: $(OBJS)
-	c++ -g -o zapm $(LDPATH) $(LDFLAGS) $(LIBS) $(OBJS) $(DEBUGLIBS)
+zapm: $(OBJ)
+	c++ -g -o zapm $(BASE_LDFLAGS) $(LDFLAGS) $(OBJ)
+
+debug: $(OBJ)
+	c++ -g -o zapm $(BASE_LDFLAGS) $(LDFLAGS) $(OBJ)
 
 clean:
 	rm -f zapm *.o config.h dbg.txt gmon.out
@@ -72,7 +70,7 @@ clean:
 cleaner: clean
 	rm -f *~ \#*\#
 
-#$(OBJS) : config.h
+#$(OBJ) : config.h
 Monster.o : MonsterData.h
 
 multiuser :
