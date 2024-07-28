@@ -16,8 +16,9 @@ GAMEDIR= 	"/usr/games"
 DATADIR= 	"/usr/games/lib/zapmdir"
 
 CXX?=		c++
-BASE_LDFLAGS=	-lpanel -lcurses
+BASE_LDFLAGS=	$(shell pkg-config --libs panel ncurses)
 LDFLAGS?=
+BASE_CXXFLAGS=	$(shell pkg-config --cflags panel ncurses)
 CXXFLAGS?=	-Wall -Wextra -Wno-char-subscripts -O0 -g
 
 all: zapm-oneuser
@@ -53,16 +54,16 @@ zapm-win32: win32/Release/zapm.exe
 	cp win32/Release/zapm.exe win32/build/zapm/
 	cp docs/Guide.txt win32/build/zapm
 	rm -f zapm.zip
-	cd win32/build && zip -r ../zapm.zip zapm 
+	cd win32/build && zip -r ../zapm.zip zapm
 
 $(OBJ): %.o:%.cpp
-	$(CXX) -o $@ $(CPPFLAGS) $(CXXFLAGS) -std=c++98 -c $<
+	$(CXX) -o $@ $(CPPFLAGS) $(BASE_CXXFLAGS) $(CXXFLAGS) -std=c++98 -c $<
 
 zapm: $(OBJ)
-	c++ -g -o zapm $(BASE_LDFLAGS) $(LDFLAGS) $(OBJ)
+	c++ -g -o zapm $(OBJ) $(BASE_LDFLAGS) $(LDFLAGS)
 
 debug: $(OBJ)
-	c++ -g -o zapm $(BASE_LDFLAGS) $(LDFLAGS) $(OBJ)
+	c++ -g -o zapm $(OBJ) $(BASE_LDFLAGS) $(LDFLAGS)
 
 clean:
 	rm -f zapm *.o config.h dbg.txt gmon.out
